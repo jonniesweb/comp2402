@@ -1,0 +1,16 @@
+1. [Exercise 2.3 in the textbook] In the archive, you will find the RandomQueue class, which implements the Queue interface in a way that, when we call remove()/poll(), a random element is removed from the queue. Currently, this is done by storing all the elements in an ArrayList and picking one at random to remove. Unfortunately, this slow, since deleting a random element from an ArrayList is slow because of all the shifting. For this question, you should modify the poll()method so that it runs in constant time.
+Hint: The order that elements are stored in the ArrayList is not important, so you're free to reorder elements to make the deletion faster.
+
+2. [Like Exercise 2.2 in the textbook] In the archive, you will find the RandomQueue class, which is a subclass of ArrayDeque that has a slow implementation of the addAll(i,c) method. Look at this implementation, understand why it is so slow, and reimplement this method so that it runs in O(1+c.size() + n - i) time. 
+3. [Exercise 2.9 in the textbook] The ArrayDeque implementation given in the archive is pretty good, but it suffers a little from its use of modular arithmetic. Complete the ArrayDeque2 class that works like an ArrayDeque, but all the data always occupies positions a[j],a[j+1],...,a[j+n-1](notice that there is no modular arithmetic being done).
+If ever the data runs off either end of a then the resize() operation is called to resize a to size 2*n and place the data at locations a[n/2],...,a[n/2+n-1].
+
+Like an ArrayDeque, the add(i,x), and remove(i) operations should run in O(1+min{i,n-i}) amortized time.
+
+4. [Exercise 2.8 in the textbook] This is another exercise in avoid modular arithmetic.  When a.length is a power of 2, i%a.length = i&a.length-1. Using this fact, complete the ArrayDeque3 class in the implementation so that it uses & and - instead of %. The trick here is to change how and when a is resized so that a.length always remains a power of two, but the data structure still remains efficient.
+Like an ArrayDeque, the add(i,x), and remove(i) operations should run in O(1+min{i,n-i}) amortized time.
+
+5. [Exercise 2.11 in the textbook] Make a RootishArrayStack2 class that uses the same ideas as a RootishArrayStack, but is more efficient.
+Instead of storing data in a sequence of r arrays b[0],...,b[r-1], it should store the data in a sequence of r bounded ArrayDeques (the BDeque class is provided in the assignment). If you implement this properly, the add(i,x) and remove(i) operations will run in O(1+min{n1/2, n-i}) time.
+
+Hint: Using a  BDeque means that most of the shifting that is done within the arrays of a RootishArrayStack can be replaced with remove(0), remove(size()-1), add(0), or add(size()-1).
