@@ -1,0 +1,5 @@
+#! /bin/bash
+
+rm comp2402a3.zip
+javac comp2402a3/*.java
+zip -r comp2402a3 . -i comp2402a3\*.java
