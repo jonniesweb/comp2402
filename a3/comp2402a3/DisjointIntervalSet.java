@@ -17,27 +17,42 @@ public class DisjointIntervalSet<K extends Comparable<K>> implements IntervalSet
 		intervals = new TreeSet<Interval<K>>();
 	}
 	
+	@Override
 	public boolean add(Interval<K> i) {
-		// TODO: add checking to see if i overlaps anything in the set
-		//       -- if so, don't add it and return false. Otherwise, add 
-		// it and return true
+		
+		SortedSet<Interval<K>> s = intervals.tailSet(i);
+		if (s.isEmpty() || s.first().compareTo(i) != 0) {
+			intervals.add(i);
+			return true;
+		}
+		
 		return false;
 	}
-
+	
+	@Override
 	public void clear() {
 		intervals.clear();
 	}
-
+	
+	@Override
 	public boolean contains(K x) {
-		// TODO Add code for searching here.  See Interval.main() for an example
+		SortedSet<Interval<K>> ts =
+				intervals.tailSet(new Interval<K>(x,x)); // Find stuff >= [i,i)
+		if (!ts.isEmpty()) {
+			Interval<K> u = ts.first(); // if it's there, it's in
+			// the first interval
+			if (u.contains(x)) {
+				return true;
+			}
+		}
 		return false;
 	}
-
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		DumbIntervalSet.runTests(new DisjointIntervalSet<Integer>());
 	}
-
+	
 }

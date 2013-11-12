@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 /**
  * This class represents an interval that is closed on its left and open
- * on its right.  
+ * on its right.
  * @author morin
  *
  * @param <T> the type of the endpoints of the interval
@@ -35,34 +35,37 @@ public class Interval<T extends Comparable<T>> implements Comparable<Interval<T>
 		a = ia;
 		b = ib;
 	}
-
+	
 	/**
 	 * Convert this interval to a string
 	 */
+	@Override
 	public String toString() {
 		return "[" + a.toString() + "," + b.toString() + ")";
 	}
-
+	
 	/**
 	 * Two intervals are considered equal if their left and right endpoints
 	 * are the same.
-	 * Warning: This doesn't agree with the output from compareTo(), which 
+	 * Warning: This doesn't agree with the output from compareTo(), which
 	 *          return 0 if two intervals overlap.
 	 */
+	@Override
 	@SuppressWarnings({"unchecked"})
 	public boolean equals(Object o) {
 		return (o instanceof Interval) && ((Interval<T>)o).a.equals(a)
-			&& ((Interval<T>)o).b.equals(b);
+				&& ((Interval<T>)o).b.equals(b);
 	}
-
+	
 	/**
-	 * We override equals, so we also override hashCode().  This uses the 
+	 * We override equals, so we also override hashCode().  This uses the
 	 * method discussed in the notes.
 	 */
+	@Override
 	public int hashCode() {
 		return a.hashCode()*0xa0f3727d + b.hashCode();
 	}
-
+	
 	/**
 	 * Return true if this interval contains the value x
 	 * @param x the value to test
@@ -74,7 +77,7 @@ public class Interval<T extends Comparable<T>> implements Comparable<Interval<T>
 	
 	
 	/**
-	 * Compare two intervals. This is not what you're used to. 
+	 * Compare two intervals. This is not what you're used to.
 	 * If this and i overlap, this method it returns 0, otherwise it determines
 	 * whether this comes before i or after
 	 * 
@@ -83,11 +86,12 @@ public class Interval<T extends Comparable<T>> implements Comparable<Interval<T>
 	 * 
 	 * On the other hand, if you use this to store a set of disjoint intervals
 	 * in, for example, a SortedSet s, then one can find the interval (a,b) that
-	 * contains a query value x.  See the main() method for an example of how 
-	 * to do this 
+	 * contains a query value x.  See the main() method for an example of how
+	 * to do this
 	 * @return A negative value if this is entirely to the left of i, a positive
 	 * 	value if this is entirely to the right of i, and 0 if this and i overlap.
 	 */
+	@Override
 	public int compareTo(Interval<T> i) {
 		if (a.compareTo(i.a) == 0 && b.compareTo(i.b) == 0) {
 			return 0; // identical intervals
@@ -100,7 +104,7 @@ public class Interval<T extends Comparable<T>> implements Comparable<Interval<T>
 		}
 		return 0; // intervals overlap but are not identical
 	}
-
+	
 	/**
 	 * A simple test driver
 	 * @param args
@@ -118,13 +122,13 @@ public class Interval<T extends Comparable<T>> implements Comparable<Interval<T>
 		SortedSet<Interval<Integer>> s = new TreeSet<Interval<Integer>>();
 		s.addAll(l);
 		for (int i = 0; i < 50; i++) {
-			// This illustrates how to search for the interval containing a 
+			// This illustrates how to search for the interval containing a
 			// query value i within a SortedSet of disjoint intervals.
-			SortedSet<Interval<Integer>> ts = 
-				s.tailSet(new Interval<Integer>(i,i)); // Find stuff >= [i,i) 
-			if (!ts.isEmpty()) { 
+			SortedSet<Interval<Integer>> ts =
+					s.tailSet(new Interval<Integer>(i,i)); // Find stuff >= [i,i)
+			if (!ts.isEmpty()) {
 				Interval<Integer> u = ts.first(); // if it's there, it's in
-												  // the first interval
+				// the first interval
 				if (u.contains(i)) {
 					System.out.print(i + ",");
 				}
