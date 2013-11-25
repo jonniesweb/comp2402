@@ -13,5 +13,6 @@ package comp2402a4;
 public class BinaryTreeNode<Node extends BinaryTreeNode<Node>> {
 	public Node left;
 	public Node right;
-	public Node parent;	
+	public Node parent;
+	public int size = 0;
 }
