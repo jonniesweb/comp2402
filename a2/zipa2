@@ -1,5 +1,0 @@
-#! /bin/bash
-
-rm comp2402a2.zip
-javac comp2402a2/*.java
-zip -r comp2402a2 . -i comp2402a2\*.java
